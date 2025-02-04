@@ -169,7 +169,7 @@ If you wish for obsmon to look somewhere else for R-libs, then you can, *e.g.*, 
 
 ## [System dependencies](@id sysdeps)
 
-### CentOS, RHEL or Ubuntu
+### CentOS/RHEL (@sysdeps-rhel)
 
 list the system dependencies for the R libraries used in obsmon under
 CentOS/RHEL and Ubuntu, respectively. You can find [helper
@@ -182,45 +182,55 @@ guarantee that we will be able to do this for every system]{.underline}.
 If possible, [please refer to your IT department first for problems
 regarding system dependencies]{.underline}.
 
+**CentOS 7/RHEL 7** system dependencies for obsmon. The list was produced by installing the code on a newly installed, minimal system and keeping note of the packages required during the process. Many other system packages are installed as dependencies of those listed here and have been omitted. Last updated on 2018-03-22.
+
+| Required system package  | First R lib that asks for it    |
+|:-------------------------|:--------------------------------|
+|libXt-devel               |Cairo                            |
+|cairo-devel               |Cairo                            |
+|libcurl-devel             |DBI (via curl dependency)        |     
+|openssl-devel             |DBI (via openssl dependency)     |  
+|libxml2-devel             |DBI (via xml2 dependency)        |
+|mariadb-devel             |dbplyr (via RMariaDB dependency) |
+|geos-devel                |leaflet (via rgdal dependency)   |
+|proj-devel                |leaflet (via rgdal dependency)   |
+|proj-epsg                 |leaflet (via rgdal dependency)   |
+|gdal-devel                |leaflet (via rgdal dependency)   |
+|v8-devel                  |shinyjs (via V8 dependency)      |
+
+
+
+### [Ubuntu](@id sysdeps-ubuntu)
+
+**Ubuntu 24.04 LTS** system dependencies for obsmon. The list was produced by installing the code on a newly installed system and keeping note of the packages required during the process. Many other system packages are installed as dependencies of those listed here and have been omitted. Last updated on 2019-05-28.
+
+| Required system package   | First R lib that asks for it    |
+|:--------------------------|:--------------------------------|
+|libcurl4-openssl-dev       |curl                             |
+|libssl-dev                 |openssl                          |
+|libxml2-dev                |xml2                             |
+|libmariadb-client-lgpl-dev |RMariaDB                         |
+||libcairo2-dev             |gdtools                          |
+|libgeos++-dev              |rgeos                            |
+|libgdal-dev                |rgdal                            |
+|libxt-dev                  |Cairo                            |
+|libv8-3.14-dev             |V8                               |
+
+This can be achieved with the following:
+
 ```bash
-   Required system package   First R lib that asks for it during install  
-  ------------------------- --------------------------------------------- --
-         libXt-devel                            Cairo                     
-         cairo-devel                            Cairo                     
-        libcurl-devel                 DBI (via curl dependency)           
-        openssl-devel               DBI (via openssl dependency)          
-        libxml2-devel                 DBI (via xml2 dependency)           
-        mariadb-devel             dbplyr (via RMariaDB dependency)        
-         geos-devel                leaflet (via rgdal dependency)         
-         proj-devel                leaflet (via rgdal dependency)         
-          proj-epsg                leaflet (via rgdal dependency)         
-         gdal-devel                leaflet (via rgdal dependency)         
-          v8-devel                   shinyjs (via V8 dependency)          
+sudo apt-get install -y pkg-config
+sudo apt-get install -y libcurl4-openssl-dev
+sudo apt-get install -y libssl-dev
+sudo apt-get install -y libxml2-dev
+sudo apt-get install -y libgeos++-dev
+sudo apt-get install -y libgdal-dev
+sudo apt-get install -y libcairo-dev
+sudo apt-get install -y libxt-dev
+sudo apt-get install -y libfontconfig1-dev
+sudo apt-get install -y libfreetype6-dev
+sudo apt-get install -y libudunits2-dev
 ```
-
-**CentOS 7/RHEL 7** system dependencies for obsmon. The list was
-  produced by installing the code on a newly installed, minimal system
-  and keeping note of the packages required during the process. Many
-  other system packages are installed as dependencies of those listed
-  here and have been omitted. Last updated on 2018-03-22.
-
-### [sysdeps-ubuntu](@id sysdeps-ubuntu)
-
-```bash
-    Required system package     First R lib that asks for it during install  
-  ---------------------------- --------------------------------------------- --
-      libcurl4-openssl-dev                         curl                      
-           libssl-dev                             openssl                    
-          libxml2-dev                              xml2                      
-   libmariadb-client-lgpl-dev                    RMariaDB                    
-         libcairo2-dev                            gdtools                    
-         libgeos++-dev                             rgeos                     
-          libgdal-dev                              rgdal                     
-           libxt-dev                               Cairo                     
-         libv8-3.14-dev                             V8                       
-```
-
-**Ubuntu 18.04.2 LTS** system dependencies for obsmon. The list was produced by installing the code on a newly installed system and  keeping note of the packages required during the process. Many other  system packages are installed as dependencies of those listed here and  have been omitted. Last updated on 2019-05-28.
 
 ### Other Linux distributions
 
