@@ -59,7 +59,6 @@ suppressPackageStartupMessages(library(maps))
 suppressPackageStartupMessages(library(methods))
 suppressPackageStartupMessages(library(plotly))
 suppressPackageStartupMessages(library(png))
-suppressPackageStartupMessages(library(pryr))
 suppressPackageStartupMessages(library(promises))
 suppressPackageStartupMessages(library(RColorBrewer))
 suppressPackageStartupMessages(library(RcppTOML))
@@ -102,7 +101,8 @@ setPackageOptions <- function(config) {
   options(shiny.usecairo=TRUE)
   pdf(NULL)
   flog.appender(appender.file(stderr()), 'ROOT')
-  flog.threshold(parse(text=config$general$logLevel)[[1]])
+  lvl <- get(config$general$logLevel, envir=asNamespace("futile.logger"))
+  flog.threshold(lvl)
   # ggplot2 theme: set globally. theme_bw sets figure backgrounds to white
   theme_set(theme_bw())
   # Options controlling parallelism
