@@ -1886,16 +1886,6 @@ License: GPL-2 | GPL-3
 MD5sum: 1180e4455fdadb2267aa62512a06b079
 NeedsCompilation: yes
 
-Package: pryr
-Version: 0.1
-Depends: R (>= 3.1.0)
-Imports: stringr, codetools, methods, Rcpp (>= 0.11.0)
-LinkingTo: Rcpp
-Suggests: testthat (>= 0.8.0)
-License: GPL-2
-MD5sum: 9802475d59d9698551f32fa5dc176b56
-NeedsCompilation: yes
-
 Package: ps
 Version: 1.9.1
 Depends: R (>= 3.4)
@@ -3206,11 +3196,11 @@ MD5sum: 5e5980e81a0c88275859f6b9f09d2955
 NeedsCompilation: yes
 
 Package: XML
-Version: 3.99-0.20
+Version: 3.99-0.22
 Depends: R (>= 4.0.0), methods, utils
 Suggests: bitops, RCurl
 License: BSD_3_clause + file LICENSE
-MD5sum: fadc16d071d279eeb2ff4be69a5b9c9a
+MD5sum: 03faa1992223cd931c27d23f33d96380
 NeedsCompilation: yes
 
 Package: xml2
