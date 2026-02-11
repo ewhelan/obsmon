@@ -189,7 +189,7 @@
       dfs <- list(compDf)
   }
   varname <- unique(plotData$varname)
-  data <- do.call(rbind, lapply(dfs, partial(melt, id=c("Date", "panel"))))
+  data <- do.call(rbind, lapply(dfs, purrr::partial(melt, id=c("Date", "panel"))))
   data$panel <- factor(data$panel, levels=c("Comparison", "Bias"))
   plot <- ggplot(data, aes(Date, value, group=variable, colour=variable)) +
     geom_point() +

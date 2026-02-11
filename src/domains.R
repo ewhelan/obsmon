@@ -13,7 +13,7 @@ gridAxisConfigClass <- setRefClass(Class="gridAxisConfig",
   ############################
   methods=list(
     initialize = function(...) {
-      callSuper(...)
+      callSuper()
       if(length(.self$npts_ezone)==0) .self$npts_ezone <- 0
       if(.self$npts_ezone < 0) stop("npts_ezone must be larger than or equal to zero")
       if(length(.self$npts)>0 && .self$npts<1) stop("npts must be larger than zero")
@@ -284,7 +284,7 @@ domainClass <- setRefClass(Class="domain",
   methods=list(
     initialize=function(...) {
       # Initialise name, geometry, projection & grid/thinning grid attrs.
-      callSuper(...)
+      callSuper()
       if(length(list(...)) == 0) return(NULL)
 
       ####################
@@ -300,7 +300,22 @@ domainClass <- setRefClass(Class="domain",
         ezone_ngrid=0
       )
       for(attr in names(defaults)) {
-        if(length(.self[[attr]]) == 0) .self[[attr]] <- defaults[[attr]]
+        val <- .self[[attr]]
+        def <- defaults[[attr]]
+
+        if (length(val) == 0 ||
+            (is.numeric(def) && !is.numeric(val)) ||
+            (is.logical(def) && !is.logical(val))) {
+
+          .self[[attr]] <- def
+        }
+      }
+
+      if (!is.numeric(.self$center_lonlat) ||
+        length(.self$center_lonlat) != 2 ||
+        any(is.na(.self$center_lonlat))) {
+
+        .self$center_lonlat <- c(0.0, 0.0)
       }
 
 

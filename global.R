@@ -99,7 +99,7 @@ queryUsedAndRawDataTableOutput <- function(queryUsedOutputId, dataTableOutputId)
         ),
         downloadButton(downloadButtonTxtId, "Download as TXT"),
         downloadButton(downloadButtonCsvId, "Download as CSV"),
-        dataTableOutput(dataTableOutputId) %>%
+        DTOutput(dataTableOutputId) %>%
           withSpinnerWrapper()
       )
     )
@@ -128,7 +128,7 @@ plotDataTableOutput <- function(dataTableOutputId){
         ),
         downloadButton(downloadButtonTxtId, "Download as TXT"),
         downloadButton(downloadButtonCsvId, "Download as CSV"),
-        dataTableOutput(dataTableOutputId) %>%
+        DTOutput(dataTableOutputId) %>%
           withSpinnerWrapper()
       )
     )

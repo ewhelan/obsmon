@@ -465,7 +465,7 @@ output$plot <- renderPlot({
 ) %>% bindCache(obsmonPlotObjID())
 
 # (ii) Rendering dataTables
-output$rawDataTable <- renderDataTable({
+output$rawDataTable <- renderDT({
   req(obsmonPlotObj())$rawData
 },
   options=list(scrollX=TRUE, scrollY="300px")
@@ -481,7 +481,7 @@ output$rawDataTableDownloadAsCsv <- downloadHandler(
   content = function(file) req(obsmonPlotObj())$exportData(file, format="csv", raw=TRUE)
 )
 
-output$plotDataTable <- renderDataTable({
+output$plotDataTable <- renderDT({
   req(obsmonPlotObj())$dataWithUnits
 },
   options=list(scrollX=TRUE, scrollY="300px")

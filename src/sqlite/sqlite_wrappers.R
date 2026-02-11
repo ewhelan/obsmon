@@ -28,9 +28,9 @@ criterion2clause <- function(name, criteria) {
     name,
     "dtg"=dtgClause(val),
     "level"=sprintf("(level IN (%s))",
-                     do.call(partial(paste, sep=", "), as.list(val))),
+                     do.call(purrr::partial(paste, sep=", "), as.list(val))),
     "excludeLevels"=sprintf("(level NOT IN (%s))",
-                     do.call(partial(paste, sep=", "), as.list(val))),
+                     do.call(purrr::partial(paste, sep=", "), as.list(val))),
     "statid"={
       if(all(val=="")) {
         NULL
@@ -56,13 +56,13 @@ buildWhereClause <- function(criteria) {
   subclauses <- list()
   criteriaNames <- names(criteria)
   crits <- lapply(criteriaNames[criteriaNames!="info"],
-                  partial(criterion2clause, criteria=criteria))
+                  purrr::partial(criterion2clause, criteria=criteria))
   crits <- crits[!(is.null(crits))]
   # Removing NULL, NA or empty values from the crits list.
   # This avoids, e.g., building invalid queries with dangling ANDs
   # (e.g., "WHERE AND", "AND AND", etc)
   crits[sapply(crits, notValidCrit)] <- NULL
-  do.call(partial(paste, sep=" AND "), crits)
+  do.call(purrr::partial(paste, sep=" AND "), crits)
 }
 
 dbConnectWrapper <- function(dbpath, read_only=FALSE, showWarnings=TRUE) {
@@ -178,7 +178,7 @@ performQuery <- function(
 
   res <- tryCatch({
       queryResult <- future_lapply(seq_along(dbpaths),
-        partial(
+        purrr::partial(
           performSingleQuery, dbpaths=dbpaths,
           query=query, progressFile=progressFile
         ),

@@ -263,7 +263,7 @@ observeEvent(newOutputSlotsHaveBeenCreated(), {
       outputsToResetBeforeNewMultiplot(
         c(outputsToResetBeforeNewMultiplot(), plotDataTableId)
       )
-      output[[plotDataTableId]] <- renderDataTable(
+      output[[plotDataTableId]] <- renderDT(
         req(mPlot$dataWithUnits),
         options=list(scrollX=TRUE, scrollY="200px")
       )
@@ -278,7 +278,7 @@ observeEvent(newOutputSlotsHaveBeenCreated(), {
       outputsToResetBeforeNewMultiplot(
         c(outputsToResetBeforeNewMultiplot(), rawDataTableId)
       )
-      output[[rawDataTableId]] <- renderDataTable(
+      output[[rawDataTableId]] <- renderDT(
         req(mPlot$rawData),
         options=list(scrollX=TRUE, scrollY="200px")
       )

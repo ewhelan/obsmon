@@ -69,18 +69,18 @@ addErrorbar <- function(obplot, sdBarData, strObnumber) {
       inherit.aes=FALSE,
       show.legend=TRUE,
       width=errorbarWidth,
-      mapping=aes_string(
-        x=xvar,
-        y="mean",
-        ymin="mean - sd",
-        ymax="mean + sd",
-        group="property",
-        colour="property",
+      mapping=aes(
+        x=.data[[xvar]],
+        y=.data[["mean"]],
+        ymin=.data[["mean - sd"]],
+        ymax=.data[["mean + sd"]],
+        group=.data[["property"]],
+        colour=.data[["property"]],
         # Shape and fill are not used by geom_errorbar, but if we don't
         # add these here then the legend is formatted strangely after
         # making the plot interactive with ggplotly
-        shape="property",
-        fill="property"
+        shape=.data[["property"]],
+        fill=.data[["property"]]
       )
     )
   return(obplot)
@@ -197,9 +197,9 @@ firstGuessAndAnPlottingFunction <-  function(plot) {
 
         # Main data in plot
         obplot <- ggplot(data=mainPlotData) +
-          aes_string(x="level", y="value",
-            group="variable", colour="variable",
-            shape="variable", fill="variable"
+          aes(x=.data[["level"]], y=.data[["value"]],
+            group=.data[["variable"]], colour=.data[["variable"]],
+            shape=.data[["variable"]], fill=.data[["variable"]]
           ) +
           # Add geom_point before geom_line so that plotly includes the shapes
           # in the legend. See comment on xlim below.

@@ -42,6 +42,7 @@ for(path in .libPaths()) {
 cat("\n")
 suppressPackageStartupMessages(library(bsplus))
 suppressPackageStartupMessages(library(Cairo))
+suppressPackageStartupMessages(library(DT))
 suppressPackageStartupMessages(library(data.table))
 suppressPackageStartupMessages(library(DBI))
 suppressPackageStartupMessages(library(dbplyr))
@@ -111,17 +112,23 @@ setPackageOptions <- function(config) {
   if(maxNWorkers > availableCores()) maxProcsSecLayer <- availableCores()
   else maxProcsSecLayer <- 1
   maxProcsFirstLayer <- floor(maxNWorkers / maxProcsSecLayer)
+
   if (future::supportsMulticore()) {
-    future::plan(list(
-      tweak(future::multicore, workers=maxProcsFirstLayer),
-      tweak(future::multicore, workers=maxProcsSecLayer)
-    ))
+  future::plan(list(
+    future::tweak( future::multicore, workers = maxProcsFirstLayer),
+    future::tweak( future::multicore, workers = maxProcsSecLayer)
+  ))
   } else {
-    future::plan(list(
-      tweak(future::multisession, workers=maxProcsFirstLayer),
-      tweak(future::multisession, workers=maxProcsSecLayer)
-    ))
-  }
+  future::plan(list(
+    future::tweak( future::multisession, workers = maxProcsFirstLayer),
+    future::tweak( future::multisession, workers = maxProcsSecLayer)
+  ))
+}
+  # Packages should be loaded in each future when needed, e.g.:
+  # future_lapply(1:10, function(x) {
+  #   library(DBI); library(sf); library(purrr)
+  #   x^2
+  # }, future.seed = TRUE)
 }
 
 sourceObsmonFiles <- function() {

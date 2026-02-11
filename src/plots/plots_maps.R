@@ -118,7 +118,7 @@ domainProj2ggplotProj <- function(domain) {
   ggplotMap <- .getStaticGenericMapPlot(plot) +
     geom_point(
       data=plot$data,
-      aes_string(x="longitude", y="latitude", fill=dataColumnName),
+      aes(x=.data[["longitude"]], y=.data[["latitude"]], fill=.data[[dataColumnName]]),
       size=3,
       shape=21,
       colour="gray50",

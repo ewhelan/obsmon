@@ -443,13 +443,13 @@ obsmonPlotClass <- setRefClass(Class="obsmonPlot",
       data_colnames <- colnames(.self$data)
       df <- melt(.self$data, id=data_colnames[1])
       graph <- ggplot(data=df) +
-        aes_string(
-          x=data_colnames[1],
-          y="value",
-          group="variable",
-          colour="variable",
-          shape="variable",
-          fill="variable"
+        aes(
+          x=.data[[data_colnames[1]]],
+          y=.data[["value"]],
+          group=.data[["variable"]],
+          colour=.data[["variable"]],
+          shape=.data[["variable"]],
+          fill=.data[["variable"]]
         ) +
         geom_point(size=4) +
         geom_line()
@@ -772,7 +772,7 @@ addTitleToPlot <- function(myPlot, title) {
     return(myPlot)
   }
   newPlot <- tryCatch({
-    if(is.ggplot(myPlot)) {
+    if(is_ggplot(myPlot)) {
       myPlot + ggtitle(title) + theme(plot.title=element_text(hjust=0.5))
     } else if("plotly" %in% class(myPlot)) {
       yTitle <- attr(myPlot, "yTitle")

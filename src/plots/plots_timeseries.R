@@ -128,7 +128,7 @@ landSeaDeparturesTimeseriesPlotPostProcessingFunction <- function(data, ...) {
 
 .getInteractiveGenericTimeseriesPlot <- function(plot) {
   ggplotPlot <- plot
-  if(!is.ggplot(plot)) ggplotPlot <- .getStaticGenericTimeseriesPlot(plot)
+  if(!is_ggplot(plot)) ggplotPlot <- .getStaticGenericTimeseriesPlot(plot)
 
   myPlotly <- ggplotly(ggplotPlot, tooltip=c("x","y")) %>%
     layout(
